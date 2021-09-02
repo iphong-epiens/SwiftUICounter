@@ -12,7 +12,7 @@ import SwiftUI
 struct FittingFontSizeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: 300, weight: .bold, design: .default))
+            .font(.system(size: 300, weight: .bold, design: .monospaced))
             .minimumScaleFactor(0.001)
     }
 }
@@ -28,7 +28,7 @@ struct ContentView: View {
     var body: some View {
         HStack {
             Button(action: {
-                viewModel.subtractPub.send()
+                viewModel.subtractAction.send()
             }) {
                 Text("-")
                     .font(.system(size: 100, weight: .bold, design: .default))
@@ -42,7 +42,7 @@ struct ContentView: View {
                 .frame(width: 200, height: 200)
             
             Button(action: {
-                viewModel.plusPub.send()
+                viewModel.plusAction.send()
             }) {
                 Text("+")
                     .font(.system(size: 100, weight: .bold, design: .default))

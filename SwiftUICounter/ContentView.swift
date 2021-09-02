@@ -6,14 +6,13 @@
 //
 
 import SwiftUI
-import Combine
 
 //http://minsone.github.io/swiftui/swiftui-text-font-size-fit-to-frame
 
 struct FittingFontSizeModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
-      .font(.system(size: 100))
+      .font(.system(size: 300, weight: .bold, design: .default))
       .minimumScaleFactor(0.001)
   }
 }
@@ -33,7 +32,6 @@ struct ContentView: View {
             }
             
             Text("\(viewModel.countedValue)")
-                .font(.system(size: 300, weight: .bold, design: .default))
                 .foregroundColor(Color.orange)
                 .padding([.leading,.trailing],10)
                 .modifier(FittingFontSizeModifier())

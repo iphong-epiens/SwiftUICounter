@@ -6,21 +6,9 @@
 //
 
 import Foundation
-import Combine
 
 class ContentViewModel: ObservableObject {
     @Published var countedValue: Int = 0
-    
-    var cancellables = Set<AnyCancellable>()
-    
-    struct Input {
-        var plusAction: ()->Void
-        let subtractAction: ()->Void
-    }
-    
-    struct Output {
-        var countedValue: AnyPublisher<Int, Never>
-    }
     
     func plusAction()  {
         countedValue+=1

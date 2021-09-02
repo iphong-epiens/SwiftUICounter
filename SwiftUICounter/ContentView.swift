@@ -10,25 +10,29 @@ import SwiftUI
 //http://minsone.github.io/swiftui/swiftui-text-font-size-fit-to-frame
 
 struct FittingFontSizeModifier: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .font(.system(size: 300, weight: .bold, design: .default))
-      .minimumScaleFactor(0.001)
-  }
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 300, weight: .bold, design: .default))
+            .minimumScaleFactor(0.001)
+    }
 }
 
 
 struct ContentView: View {
     @ObservedObject var viewModel = ContentViewModel()
     
+    init() {
+        viewModel.config()
+    }
+    
     var body: some View {
         HStack {
             Button(action: {
-                viewModel.subtractAction()
+                viewModel.subtractPub.send()
             }) {
                 Text("-")
                     .font(.system(size: 100, weight: .bold, design: .default))
-                .foregroundColor(.gray)
+                    .foregroundColor(.gray)
             }
             
             Text("\(viewModel.countedValue)")
@@ -36,14 +40,15 @@ struct ContentView: View {
                 .padding([.leading,.trailing],10)
                 .modifier(FittingFontSizeModifier())
                 .frame(width: 200, height: 200)
-
+            
             Button(action: {
-                viewModel.plusAction()
+                viewModel.plusPub.send()
             }) {
                 Text("+")
                     .font(.system(size: 100, weight: .bold, design: .default))
-                .foregroundColor(.gray)
+                    .foregroundColor(.gray)
             }
+            
         }.padding()
     }
 }

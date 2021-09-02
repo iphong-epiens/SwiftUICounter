@@ -6,14 +6,22 @@
 //
 
 import Foundation
+import Combine
 
 class ContentViewModel: ObservableObject {
     @Published var countedValue: Int = 0
+    var cancellables = Set<AnyCancellable>()
     
-    func plusAction()  {
-        countedValue+=1
-    }
-    func subtractAction()  {
-        countedValue-=1
+    var plusPub = PassthroughSubject<Void,Never>()
+    var subtractPub = PassthroughSubject<Void,Never>()
+    
+    func config() {
+        self.plusPub
+            .sink{ self.countedValue+=1 }
+            .store(in: &self.cancellables)
+        
+        self.subtractPub
+            .sink{ self.countedValue-=1 }
+            .store(in: &self.cancellables)
     }
 }
